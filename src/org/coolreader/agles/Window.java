@@ -10,6 +10,8 @@ import javax.media.opengl.GLProfile;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.opengl.GLWindow;
 import com.jogamp.opengl.util.Animator;
 
@@ -17,7 +19,7 @@ public class Window implements GLEventListener{
 
 	private GLWindow glWindow;
 	
-	public Window(GLSurfaceView.Renderer renderer) {
+	public Window(GLSurfaceView.Renderer renderer, KeyListener keyListener, MouseListener mouseListener) {
         this.renderer = renderer;
         GLCapabilities caps = new GLCapabilities(GLProfile.get(GLProfile.GL2ES2));
 	// We may at this point tweak the caps and request a translucent drawable
@@ -31,6 +33,10 @@ public class Window implements GLEventListener{
         glWindow.setVisible(true);
 
         glWindow.addGLEventListener(this);
+        if (keyListener != null)
+        	glWindow.addKeyListener(keyListener);
+        if (mouseListener != null)
+        	glWindow.addMouseListener(mouseListener);
 	}
 
 	public void run() {
@@ -39,10 +45,10 @@ public class Window implements GLEventListener{
         animator.start();
 	}
 
-	public static void showWindow(GLSurfaceView.Renderer renderer, int w, int h) {
+	public static void showWindow(GLSurfaceView.Renderer renderer, int w, int h, KeyListener keyListener, MouseListener mouseListener) {
 		width = w;
 		height = h;
-		Window wnd = new Window(renderer);
+		Window wnd = new Window(renderer, keyListener, mouseListener);
 		wnd.run();
 	}
 	
