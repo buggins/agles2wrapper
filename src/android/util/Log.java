@@ -84,7 +84,8 @@ public final class Log {
     /**
      * Exception class used to capture a stack trace in {@link #wtf()}.
      */
-    private static class TerribleFailure extends Exception {
+    @SuppressWarnings("serial")
+	private static class TerribleFailure extends Exception {
         TerribleFailure(String msg, Throwable cause) { super(msg, cause); }
     }
 

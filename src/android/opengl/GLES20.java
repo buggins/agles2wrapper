@@ -19,7 +19,6 @@
 
 package android.opengl;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
 
 /**
