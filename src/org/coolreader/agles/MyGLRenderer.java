@@ -299,14 +299,18 @@ class Square {
                                                      fragmentShaderCode);
 
         mProgram = GLES20.glCreateProgram();             // create empty OpenGL Program
+        MyGLRenderer.checkGlError("glCreateProgram");
         GLES20.glAttachShader(mProgram, vertexShader);   // add the vertex shader to program
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
+        MyGLRenderer.checkGlError("glAttachShader");
         GLES20.glLinkProgram(mProgram);                  // create OpenGL program executables
+        MyGLRenderer.checkGlError("glLinkProgram");
     }
 
     public void draw(float[] mvpMatrix) {
         // Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);
+        MyGLRenderer.checkGlError("glUseProgram");
 
         // get handle to vertex shader's vPosition member
         mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
