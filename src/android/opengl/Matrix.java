@@ -16,6 +16,8 @@
 
 package android.opengl;
 
+import java.util.Arrays;
+
 /**
  * Matrix math utilities. These methods operate on OpenGL ES format
  * matrices and vectors stored in float arrays.
@@ -68,6 +70,10 @@ public class Matrix {
      */
     public static void multiplyMM(float[] d, int dP,
             float[] a, int aP, float[] b, int bP) {
+    	if (d == a && dP == aP)
+    		a = Arrays.copyOf(a, a.length);
+    	if (d == b && dP == bP)
+    		b = Arrays.copyOf(b, b.length);
         for (int i = 0; i < 4; i++) {
             final float ai0=a[aP+i+0*4],  ai1=a[aP+i+1*4],  ai2=a[aP+i+2*4],  ai3=a[aP+i+3*4];
             d[dP+i+0*4] = ai0 * b[bP+0+0*4] + ai1 * b[bP+1+0*4] + ai2 * b[bP+2+0*4] + ai3 * b[bP+3+0*4];
